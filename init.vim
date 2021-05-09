@@ -1,0 +1,179 @@
+"============================================================================
+"
+"=============================================================================
+
+" execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/main.vim'
+
+" ===
+" === Auto load for first time uses
+" ===
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ===
+" Settings
+set number
+set relativenumber
+set mouse=nvic
+
+set cursorline
+set autoindent
+set wildmenu
+set showcmd
+set list
+set wrap
+set whichwrap=b,s,<,>,[,]
+set listchars=tab:>-,trail:-
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set foldmethod=indent
+exec "nohlsearch"
+
+set ruler
+set sidescroll=10
+set scrolloff=5
+
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+syntax enable
+
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+" ===
+" persistent operation hist Copy from theniceboy
+silent !mkdir -p ~/.config/nvim/tmp/backup
+silent !mkdir -p ~/.config/nvim/tmp/undo
+"silent !mkdir -p ~/.config/nvim/tmp/sessions
+set backupdir=~/.config/nvim/tmp/backup,.
+set directory=~/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+	set undofile
+	set undodir=~/.config/nvim/tmp/undo,.
+endif
+
+" ===
+" KEY MAP
+nmap <Space> <nop>
+let mapleader=" "
+map U <C-r>
+map <LEADER>w :w<CR>
+map <LEADER>q :wq<CR>
+map <LEADER>Q :q!<CR>
+map H 5h
+map J 5j
+map K 5k
+map L 5l
+noremap! jkl <Esc>
+vnoremap jkl <Esc>
+noremap! <C-h> <left>
+noremap! <C-j> <down>
+noremap! <C-k> <up>
+noremap! <C-l> <right>
+
+" ===
+" Comment
+nmap <LEADER>c 0i"<Space><Esc>
+nmap <LEADER>C 0d2l
+vmap <LEADER>c :normal 0i"<Space><CR>
+vmap <LEADER>C :normal 0d2l<CR>
+
+noremap <LEADER>h :nohlsearch<CR>
+map <LEADER>f zM
+map <LEADER>F zR
+map <LEADER>r :source $MYVIMRC<CR>
+
+" Split
+map sh :set nosplitright<CR>:vsplit<CR>
+map sl :set splitright<CR>:vsplit<CR>
+map sj :set nosplitbelow<CR>:split<CR>
+map sk :set splitbelow<CR>:split<CR>
+map <LEADER>h <C-w>h
+map <LEADER>j <C-w>j
+map <LEADER>k <C-w>k
+map <LEADER>l <C-w>l
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+
+" Tab
+map nt :tabe<CR>
+map tn :-tabnext<CR>
+map tp :+tabnext<CR>
+
+" No interrupt
+map <C-z> <nop>
+
+" NerdTree
+map <LEADER>nt :NERDTree
+map <LEADER>ntv :NERDTreeVCS
+map <LEADER>ntfb :NERDTreeFromBookmark
+map <LEADER>ntt :NERDTreeToggle
+map <LEADER>nttv :NERDTreeToggleVCS
+map <LEADER>ntf :NERDTreeFocus<CR>
+map <LEADER>ntc :NERDTreeClose<CR>
+map <LEADER>ntf :NERDTreeFind
+
+" ===
+" Command
+" Show changes
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+
+" vim-plug
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+Plug 'mbbill/undotree'
+Plug 'dense-analysis/ale'
+Plug 'preservim/tagbar'
+Plug 'instant-markdown/vim-instant-markdown'
+Plug 'kshenoy/vim-signature'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'li-yi-dong/vim-cuda-syntax'
+
+call plug#end()
+
+
+" ===
+" Plug settings
+
+" ===
+" NerdTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+autocmd BufWinEnter * silent NERDTreeMirror
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
+" ===
+" YouCompleteMe
+" let g:ycm_language_server =
+"   \ [
+"   \   {
+"   \     'name': 'cuda',
+"   \     'cmdline': [ '', '' ],
+"   \     'filetypes': [ 'cuda' ]
+"   \   }
+"   \ ]
+let g:lsp_settings = {'clangd': {'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cuda']}}
