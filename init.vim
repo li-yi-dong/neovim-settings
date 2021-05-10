@@ -78,6 +78,7 @@ noremap! <C-h> <left>
 noremap! <C-j> <down>
 noremap! <C-k> <up>
 noremap! <C-l> <right>
+vmap <LEADER>n :normal
 
 " ===
 " Comment
@@ -111,10 +112,16 @@ map tn :-tabnext<CR>
 map tp :+tabnext<CR>
 
 " Yank
-map <LEADER>Y "*y
-map <LEADER>P "*p
-vmap <LEADER>Y "*y
-vmap <LEADER>P "*p
+map <LEADER>y "*y
+map <LEADER>p "*p
+vmap <LEADER>y "*y
+vmap <LEADER>p "*p
+
+" For Parallels Desktop
+map <LEADER>y "+y
+map <LEADER>p "+p
+vmap <LEADER>y "+y
+vmap <LEADER>p "+p
 
 " No interrupt
 map <C-z> <nop>
@@ -150,6 +157,8 @@ Plug 'instant-markdown/vim-instant-markdown'
 Plug 'kshenoy/vim-signature'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'li-yi-dong/vim-cuda-syntax'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 call plug#end()
 
