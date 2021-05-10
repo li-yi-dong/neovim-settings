@@ -155,7 +155,6 @@ Plug 'dense-analysis/ale'
 Plug 'preservim/tagbar'
 Plug 'instant-markdown/vim-instant-markdown'
 Plug 'kshenoy/vim-signature'
-Plug 'ycm-core/YouCompleteMe'
 Plug 'li-yi-dong/vim-cuda-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
