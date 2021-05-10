@@ -110,6 +110,12 @@ map nt :tabe<CR>
 map tn :-tabnext<CR>
 map tp :+tabnext<CR>
 
+" Yank
+map <LEADER>Y "*y
+map <LEADER>P "*p
+vmap <LEADER>Y "*y
+vmap <LEADER>P "*p
+
 " No interrupt
 map <C-z> <nop>
 
