@@ -127,10 +127,10 @@ vmap <LEADER>y "*y
 vmap <LEADER>p "*p
 
 " For Parallels Desktop
-map <LEADER>y "+y
-map <LEADER>p "+p
-vmap <LEADER>y "+y
-vmap <LEADER>p "+p
+" map <LEADER>y "+y
+" map <LEADER>p "+p
+" vmap <LEADER>y "+y
+" vmap <LEADER>p "+p
 
 " No interrupt
 map <C-z> <nop>
@@ -190,6 +190,7 @@ autocmd BufWinEnter * silent NERDTreeMirror
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+let NERDTreeShowHidden=1
 
 " ===
 " CoC
