@@ -101,7 +101,7 @@ nmap <LEADER>C 0d2l
 vmap <LEADER>c :normal 0i"<Space><CR>
 vmap <LEADER>C :normal 0d2l<CR>
 
-noremap <LEADER>h :nohlsearch<CR>
+noremap <LEADER>nh :nohlsearch<CR>
 map <LEADER>f zM
 map <LEADER>F zR
 map <LEADER>r :source $MYVIMRC<CR>
@@ -172,6 +172,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'li-yi-dong/vim-cuda-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
+Plug 'nathanaelkane/vim-indent-guides'
 
 
 call plug#end()
@@ -279,4 +280,20 @@ nnoremap <silent> <space>Y  :<C-u>CocList -A --normal yank<cr>
 
 nmap ts <Plug>(coc-translator-p)
 
+" ===
+" Indent Guides
+" ====
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors=0
+hi IndentGuidesEven ctermbg=LightBlue
+hi IndentGuidesOdd ctermbg=LightMagenta
+
 let g:lsp_settings = {'clangd': {'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cuda']}}
+
+" Frequently used default keys
+" <LEADER> ig                   --Toggle indent
+"
+" m (a, d, c)                   --Create/Delete/Copy files in NTree
+"
