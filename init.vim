@@ -15,6 +15,9 @@ endif
 
 " ===
 " Settings
+set background=light
+hi Visual ctermbg=LightCyan
+
 set number
 set relativenumber
 
@@ -35,6 +38,8 @@ set wrap
 set whichwrap=b,s,<,>,[,]
 set listchars=tab:\|\ ,trail:▫
 set hlsearch
+hi Search ctermbg=LightCyan ctermfg=LightMagenta
+
 set incsearch
 set ignorecase
 set smartcase
@@ -110,10 +115,10 @@ map <LEADER>h <C-w>h
 map <LEADER>j <C-w>j
 map <LEADER>k <C-w>k
 map <LEADER>l <C-w>l
-map <left> :vertical resize-5<CR>
-map <right> :vertical resize+5<CR>
-map <up> :res +5<CR>
-map <down> :res -5<CR>
+" map <left> :vertical resize-5<CR>
+" map <right> :vertical resize+5<CR>
+" map <up> :res +5<CR>
+" map <down> :res -5<CR>
 
 " Tab
 map nt :tabe<CR>
@@ -207,7 +212,8 @@ let g:coc_global_extensions = [
     \'coc-lists',
     \'coc-prettier',
     \'coc-yank',
-	\'coc-marketplace']
+	\'coc-marketplace',
+    \'coc-pyright']
 
 " Tab
 inoremap <silent><expr> <TAB>
